@@ -201,7 +201,7 @@ table.t1 tr.a1{
 
 
 .checkbox{
-	width:50px;
+	width:20px;
 	height:20px;
 }
 .STYLE2 {color: #666666}
@@ -218,14 +218,14 @@ table.t1 tr.a1{
         </tr>
       </table>
 	 <hr style="display:block" />
-      <table width="90%" id="mytab"  border="1" class="t1">
+      <table width="95%" id="mytab"  border="1" class="t1">
         <thead>
         <th class="checkbox"><input type="checkbox" name="ifAll" id="ifAll" onclick="checkAll(this)"/></th>
-          <th width="10%">名称</th>
-          <th width="25%">试卷名称</th>
+          <th width="7%">名称</th>
+          <th width="24%">试卷名称</th>
           <th width="55%">内容</th>
-          <th width="10%">类型</th>
-          <th width="10%">答案</th>
+          <th width="7%">类型</th>
+          <th width="7%">答案</th>
           </thead>
         <%
         List examPaperList = pageModel.getList();
@@ -248,7 +248,7 @@ table.t1 tr.a1{
         </tr>
         <%} %> 
       </table>
-      <table width="90%" height="30" border="0" align="center"
+      <table width="95%" height="30" border="0" align="center"
 
 				cellpadding="0" cellspacing="0" class="rd1">
         <tr bgcolor="#F5FAFE">
