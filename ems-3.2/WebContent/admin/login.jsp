@@ -112,7 +112,7 @@ function submitForm()
   </tr>
   <tr>
    <td rowspan="6"><img name="admin_login1_r2_c1" src="../images/admin_login1_r2_c1.jpg" width="354" height="102" border="0" id="admin_login1_r2_c1" alt="" /></td>
-   <td rowspan="2" background="../images/admin_login1_r2_c2.jpg"><input name="aId" style="width:125px; height:13px; " type="text" /></td>
+   <td rowspan="2" background="../images/admin_login1_r2_c2.jpg"><input value="bll" name="aId" style="width:125px; height:13px; " type="text" /></td>
    <td colspan="3"><img name="admin_login1_r2_c3" src="../images/admin_login1_r2_c3.jpg" width="125" height="4" border="0" id="admin_login1_r2_c3" alt="" /></td>
    <td><img src="../images/spacer.gif" width="1" height="4" border="0" alt="" /></td>
   </tr>
@@ -127,7 +127,7 @@ function submitForm()
    <td><img src="../images/spacer.gif" width="1" height="7" border="0" alt="" /></td>
   </tr>
   <tr>
-   <td rowspan="2" background="../images/admin_login1_r5_c2.jpg"><input name="aPassword" style="width:125px; height:13px;" type="password" /></td>
+   <td rowspan="2" background="../images/admin_login1_r5_c2.jpg"><input value="111111" name="aPassword" style="width:125px; height:13px;" type="password" /></td>
    <td><img src="../images/spacer.gif" width="1" height="14" border="0" alt="" /></td>
   </tr>
   <tr>

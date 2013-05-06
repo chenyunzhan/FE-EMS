@@ -23,16 +23,16 @@ public class ExamDao4SQLServerImpl implements ExamDao{
 			throws DaoException {
 		String sql = "select top " + pageSize  +" * from exampaper where e_id not in (select top " + pageSize*(pageNo-1) + " e_id from exampaper order by e_id) order by e_id";
 		if(year != null && !"".equals(year)){
-			sql = "select top " + pageSize  +" * from exampaper where p_id like '"+ year +"%' and (e_id not in (select top " + pageSize*(pageNo-1) + " e_id" + 
-			" from exampaper where p_id like '"+ year +"%' order by e_id))";
+			sql = "select top " + pageSize  +" * from exampaper where p_id like '"+ year +"' and (e_id not in (select top " + pageSize*(pageNo-1) + " e_id" + 
+			" from exampaper where p_id like '"+ year +"' order by e_id))";
 		}
 		if(year != null && !"".equals(year) && month != null && !"".equals(month)){
-			sql = "select top " + pageSize  +" * from exampaper where p_id like '"+ year + month +"%' and (e_id not in (select top " + pageSize*(pageNo-1) + " e_id" + 
-			" from exampaper where p_id like '"+ year + month +"%' order by e_id))";
+			sql = "select top " + pageSize  +" * from exampaper where p_id like '"+ year + month +"' and (e_id not in (select top " + pageSize*(pageNo-1) + " e_id" + 
+			" from exampaper where p_id like '"+ year + month +"' order by e_id))";
 		}
 		if(year != null && !"".equals(year) && month != null && !"".equals(month) && course != null && !"".equals(course)){
-			sql = "select top " + pageSize  +" * from exampaper where p_id like '"+ year + month + course +"%' and (e_id not in (select top " + pageSize*(pageNo-1) + " e_id" + 
-			" from exampaper where p_id like '"+ year + month + course +"%' order by e_id))";
+			sql = "select top " + pageSize  +" * from exampaper where p_id like '"+ year + month + course +"' and (e_id not in (select top " + pageSize*(pageNo-1) + " e_id" + 
+			" from exampaper where p_id like '"+ year + month + course +"' order by e_id))";
 		}
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -67,13 +67,14 @@ public class ExamDao4SQLServerImpl implements ExamDao{
 	public int getTotalRecord(String year, String month, String course)
 			throws DaoException {
 		String sql = "select count(*) from exampaper";
-		if(year != null && !"".equals(year)){
-			sql += " where p_id like '" + year + "%'";
-		}else if(year != null && !"".equals(year) && month != null && !"".equals(month)){
-			sql += " where p_id like '" + year + month + "%'";
-		}else if(year != null && !"".equals(year) && month != null && !"".equals(month) && course != null && !"".equals(course)){
+		
+		 if(year != null && !"".equals(year) && month != null && !"".equals(month) && course != null && !"".equals(course)){
 			sql += " where p_id like '" + year + month + course + "'";
-		}
+		 }else if(year != null && !"".equals(year) && month != null && !"".equals(month)){
+			sql += " where p_id like '" + year + month + "'";
+		 }else if(year != null && !"".equals(year)){
+			sql += " where p_id like '" + year + "'";
+		 }
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		//System.out.println(sql);
