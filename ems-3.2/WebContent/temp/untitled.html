@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>精美的表格样式</title>
+<script type="text/javascript">
+	function addPaper() {
+		window.self.location = "add_paper.html";	
+	}
+	
+	function modifyPaper() {
+		window.self.location = "modify_paper.html";
+	}
+	
+	function deletePaper() {
+		
+	}
+	
+	function uploadPic4Paper(){
+		window.self.location = "upload_picture4paper.html";
+	}
+	
+</script>
+<style type="text/css">
+<!--
+body,table{
+    font-size:12px;
+}
+table{
+    table-layout:fixed;
+    empty-cells:show; 
+    border-collapse: collapse;
+    margin:0 auto;
+}
+td{
+    height:20px;
+}
+h1,h2,h3{
+    font-size:12px;
+    margin:0;
+    padding:0;
+}
+
+.title { background: #FFF; border: 1px solid #9DB3C5; padding: 1px; width:90%;margin:20px auto; }
+    .title h1 { line-height: 31px; text-align:center;  background: #2F589C url(th_bg2.gif); background-repeat: repeat-x; background-position: 0 0; color: #FFF; }
+        .title th, .title td { border: 1px solid #CAD9EA; padding: 5px; }
+
+
+/*这个是借鉴一个论坛的样式*/
+table.t1{
+    border:1px solid #cad9ea;
+    color:#666;
+}
+table.t1 th {
+    background-image: url(th_bg1.gif);
+    background-repeat::repeat-x;
+    height:30px;
+}
+table.t1 td,table.t1 th{
+    border:1px solid #cad9ea;
+    padding:0 1em 0;
+}
+table.t1 tr.a1{
+    background-color:#f5fafe;
+}
+
+
+
+.checkbox{
+	width:50px;
+	height:20px;
+}
+.STYLE2 {color: #666666}
+
+-->
+</style>
+</head>
+<body>
+<br /><br /><br /><br />
+      <table width="90%" border="0" cellspacing="0" cellpadding="0"	align="center">
+        <tr bgcolor="#F5FAFE">
+          <td height="10" nowrap align="left"> 系统管理&gt;&gt;试卷信息 </td>
+          <td height="10" nowrap >&nbsp;</td>
+        </tr>
+      </table>
+	 <hr style="display:block" />
+      <table width="90%" id="mytab"  border="1" class="t1">
+        <thead>
+        <th class="checkbox"><input type="checkbox" /></th>
+          <th width="10%">网名</th>
+          <th width="30%">博客</th>
+          <th width="20%">电邮</th>
+          <th width="30%">网络硬盘</th>
+          <th width="10%">QQ</th>
+          </thead>
+        <tr class="a1">
+          <td class="checkbox"><input type="checkbox" /></td>
+          <td>wallimn</td>
+          <td>http://blog.csdn.net/wallimn</td>
+          <td>wallimn@tom.com</td>
+          <td>http://wallimn.ys168.com</td>
+          <td>54871876</td>
+        </tr>
+        <tr>
+          <td class="checkbox"><input type="checkbox" /></td>
+          <td>长三江</td>
+          <td>村在</td>
+          <td>北京天安门</td>
+          <td>东四十条</td>
+          <td>21345678</td>
+      </table>
+      <table width="90%" height="30" border="0" align="center"
+
+				cellpadding="0" cellspacing="0" class="rd1">
+        <tr bgcolor="#F5FAFE">
+          <td width="36%" height="2" nowrap class="rd19"><div align="left"> <font color="#FFFFFF">&nbsp;</font><span class="STYLE2">共&nbspxx&nbsp页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 当前第&nbsp x&nbsp 页</span> </div></td>
+          <td width="64%" nowrap class="rd19"><div align="right">
+              <input name="btnTopPage" class="button1" type="button"
+
+								id="btnTopPage" value="|&lt;&lt; " title="首页"
+
+								onClick="topPage()">
+              <input name="btnPreviousPage" class="button1" type="button"
+
+								id="btnPreviousPage" value=" &lt;  " title="上页"
+
+								onClick="previousPage()">
+              <input name="btnNextPage" class="button1" type="button"
+
+								id="btnNextPage" value="  &gt; " title="下页" onClick="nextPage()">
+              <input name="btnBottomPage" class="button1" type="button"
+
+								id="btnBottomPage" value=" &gt;&gt;|" title="尾页"
+
+								onClick="bottomPage()">
+              <input name="btnAdd" type="button" class="button1" id="btnAdd"
+
+								value="添加" onClick="addPaper()">
+              <input name="btnDelete" class="button1" type="button"
+
+								id="btnDelete" value="删除" onClick="deletePaper()">
+              <input name="btnModify" class="button1" type="button"
+
+								id="btnModify" value="修改" onClick="modifyPaper()">
+			  <input name="btnUpload" class="button1" type="button"
+
+								id="btnUpload" value="上传图片" onClick="uploadPic4Paper()">
+            </div></td>
+        </tr>
+      </table>
+
+</body>
+</html>

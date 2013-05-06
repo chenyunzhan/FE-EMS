@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>中国站长天空-网页特效-按钮特效-感应鼠标变化的实用按钮</title>
+<meta http-equiv="content-type" content="text/html;charset=gb2312">
+
+</head>
+<body>
+?<style>
+<!--
+.initial2{font-weight:bold;background-color:lime}
+//-->
+</style>
+
+<script>
+<!--
+
+function change(color){
+var el=event.srcElement
+if (el.tagName=="INPUT"&&el.type=="button")
+event.srcElement.style.backgroundColor=color
+}
+
+function jumpto2(url){
+window.location=url
+}
+
+//-->
+</script>
+<form onMouseover="change('yellow')" onMouseout="change('lime')">
+<input type="button" value="Yahoo " class="initial2" onClick="jumpto2('http://yahoo.com')">
+<input type="button" value="Sohu " class="initial2" onClick="jumpto2('http://Sohu.com')">
+</form>
+
+</body>
+</html>

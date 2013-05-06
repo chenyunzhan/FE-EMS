@@ -1,0 +1,137 @@
+<!-- 作者：陈云展 -->
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=GB18030">
+		<link rel="stylesheet" href="../style/drp.css">
+		<style type="text/css">
+<!--
+a:link {
+	text-decoration: none;
+	color: #000000;
+	font-size: 9pt;
+	font-family: 宋体;
+}
+a:visited {
+	text-decoration: none;
+	color: #000000;
+	font-size: 9pt;
+	font-family: 宋体;
+	
+}
+a:hover {
+	text-decoration: none;
+	color: #000000;
+	font-size: 9pt;
+	font-family: 宋体;
+
+}
+a:active {
+	text-decoration: none;
+	color: #000000;
+	font-size: 9pt;
+	font-family: 宋体;
+}
+-->
+</style>
+
+		<script language="JavaScript">
+<!--
+function display(id) {
+ eval("var div=div"+id);
+ eval("var img=img"+id);
+ eval("var im=im"+id);
+ div.style.display=div.style.display=="block"?"none":"block";
+ img.src=div.style.display=="block"?"../images/minus.gif":"../images/plus.gif";
+ im.src=div.style.display=="block"?"../images/openfold.gif":"../images/closedfold.gif";
+ img.alt=div.style.display=="block"?"关闭":"展开";
+}
+//-->
+</script>
+	</head>
+	<body class="body1">
+		<table>
+			<tr>
+				<td valign="top" nowrap="nowrap">
+					<div>
+						<img alt="展开" style="cursor:hand;" onClick="display('1');"
+							id="img1" src="../images/plus.gif">
+						<img id="im1" src="../images/closedfold.gif">
+						<a href="all_student_score.jsp" target="clientDispAreaFrame">所有成绩</a>
+						<div style="display:none;" id="div1">
+							<div>
+								<img src="../images/white.gif">
+								<img alt="展开" style="cursor:hand;" onClick="display('2');"
+									id="img2" src="../images/plus.gif">
+								<img id="im2" src="../images/closedfold.gif">
+								<a href="all_student_score.jsp?sGrade='09'" target="clientDispAreaFrame">09级所有成绩</a>
+								<div style="display:none;" id="div2">
+									<div>
+										<img src="../images/white.gif">
+										<img src="../images/white.gif">
+										<img alt="展开" style="cursor:hand;" onClick="display('3');"
+											id="img3" src="../images/plus.gif">
+										<img id="im3" src="../images/closedfold.gif">
+										<a href="all_student_score.jsp?sGrade='09'&sDepartmentId='01'" target="clientDispAreaFrame">09级计算机系所有成绩</a>
+										<div style="display:none;" id="div3">
+											<div>
+												<img src="../images/white.gif">
+												<img src="../images/white.gif">
+												<img src="../images/white.gif">
+												<img src="../images/minus.gif">
+												<img src="../images/openfold.gif">
+												<a href="all_student_score.jsp?sGrade='09'&sDepartmentId='01'&sClasses='01'" target="clientDispAreaFrame">09级计算机系1班所有成绩</a>
+											</div>
+											<div>
+												<img src="../images/white.gif">
+												<img src="../images/white.gif">
+												<img src="../images/white.gif">
+												<img src="../images/minus.gif">
+												<img src="../images/openfold.gif">
+												<a href="all_student_score.jsp?sGrade='09'&sDepartmentId='01'&sClasses='02'" target="clientDispAreaFrame">09级计算机系2班所有成绩</a>
+											</div>
+											<div>
+												<img src="../images/white.gif">
+												<img src="../images/white.gif">
+												<img src="../images/white.gif">
+												<img src="../images/minus.gif">
+												<img src="../images/openfold.gif">
+												<a href="all_student_score.jsp?sGrade='09'&sDepartmentId='01'&sClasses='03'" target="clientDispAreaFrame">09级软件1班所有成绩</a>
+											</div>
+											<div>
+												<img src="../images/white.gif">
+												<img src="../images/white.gif">
+												<img src="../images/white.gif">
+												<img src="../images/minus.gif">
+												<img src="../images/openfold.gif">
+												<a href="all_student_score.jsp?sGrade='09'&sDepartmentId='01'&sClasses='04'" target="clientDispAreaFrame">09级软件2班所有成绩</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div>
+								<img src="../images/white.gif">
+								<img src="../images/minus.gif">
+								<img src="../images/openfold.gif">
+								<a href="all_student_score.jsp?sGrade='10'" target="clientDispAreaFrame">10级所有成绩</a>
+							</div>
+							<div>
+								<img src="../images/white.gif">
+								<img src="../images/minus.gif">
+								<img src="../images/openfold.gif">
+								<a href="all_student_score.jsp?sGrade='11'" target="clientDispAreaFrame">11级所有成绩</a>
+							</div>
+							<div>
+								<img src="../images/white.gif">
+								<img src="../images/minus.gif">
+								<img src="../images/openfold.gif">
+								<a href="all_student_score.jsp?sGrade='12'" target="clientDispAreaFrame">12级所有成绩</a>
+							</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
+

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<title>提示框效果</title> 
+<style type="text/css"> 
+.main{width:950px; border:#9C3 1px solid; margin:0 auto; padding:15px; background-color:#fff; line-height:25px;font-size:14px; position:relative;} 
+span{border:#70bce4 2px solid; display:block; position:absolute; background-color:#FFF; padding:5px 10px; font-size:12px; width:200px; display:none;} 
+.cur{color:#900;} 
+</style> 
+</head> 
+<body onload="tips();"> 
+<br /> 
+<br /> 
+<br /> 
+<br /> 
+<div class="main" id="article"> 
+早在陈冠希“艳照门”事件爆发之前，陈冠希老爸就曾被传包养内地男星胡兵。所谓无风不起浪，两人曾被媒体拍到一起吃饭逛街的镜头。而<a href="#" class="cur">胡兵</a><span><a href="#">双响炮上海开机</a><br /><a href="#">双响炮上海开机</a><br /><a href="#">双响炮上海开机</a></span>本人的暧昧态度也为此事件更增添了一份迷雾。早在陈冠希“艳照门”事件爆发之前，陈冠希老爸就曾被传包养内地男星胡兵。所谓无风不起浪，两人曾被媒体拍到一起吃饭逛街的镜头。而<a href="#" class="cur">胡兵</a><span><a href="#">双响炮上海开机</a><br /><a href="#">双响炮上海开机</a><br /><a href="#">双响炮上海开机</a></span>本人的暧昧态度也为此事件更增添了一份迷雾。 早在陈冠希“艳照门”事件爆发之前，陈冠希老爸就曾被传包养内地男星胡兵。所谓无风不起浪，两人曾被媒体拍到一起吃饭逛街的镜头。而<a href="#" class="cur">胡兵</a><span><a href="#">双响炮上海开机</a><br /><a href="#">双响炮上海开机</a><br /><a href="#">双响炮上海开机</a></span>本人的暧昧态度也为此事件更增添了一份迷雾。 
+</div> 
+<script type="text/javascript"> 
+function $a(id,tag){var re=(id&&typeof id!="string")?id:document.getElementById(id);if(!tag){return re;}else{return re.getElementsByTagName(tag);}} 
+function tips(){ 
+var article=$a("article","a") 
+for(i=0;i<article.length;i++){ 
+if(article[i].className.indexOf("cur")==-1) continue; 
+article[i].onmouseover=function(e){ 
+var e=e||event; 
+posX = e.clientX; 
+posY = e.clientY; 
+var bodyhe=document.documentElement.clientHeight; 
+var parwidth=$a("article").offsetWidth; 
+var tipbox=get_nextSibling(this); 
+var boxlist=$a("article","span") 
+for(j=0;j<boxlist.length;j++){ 
+boxlist[j].style.display="none"; 
+boxlist[j].innerHTML="调入后台数据" 
+} 
+tipbox.style.display="block"; 
+var w=tipbox.offsetWidth-this.offsetWidth; 
+tipbox.style.left=(this.offsetLeft>parwidth/2?this.offsetLeft-w:this.offsetLeft)+"px"; 
+tipbox.style.top=(posY+tipbox.offsetHeight>bodyhe?this.offsetTop-tipbox.offsetHeight:document.all?this.offsetTop+15:this.offsetTop+this.offsetHeight)+"px"; 
+tipbox.onmouseover=function(){this.style.display="block";} 
+tipbox.onmouseout=this.onmouseout=function(){tipbox.style.display="none";} 
+} 
+} 
+} 
+function get_nextSibling(n){ 
+var x=n.nextSibling; 
+while (x.nodeType!=1){ 
+x=x.nextSibling; 
+} 
+return x; 
+} 
+</script> 
+</body> 
+</html> 

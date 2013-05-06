@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+	xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+		<servlet-name>InitServlet</servlet-name>
+		<servlet-class>com.ems.fe.util.servlet.InitServlet</servlet-class>
+		<load-on-startup>5</load-on-startup>
+  </servlet>
+	
+	<servlet>
+		<servlet-name>FileUpload</servlet-name>
+		<servlet-class>com.ems.fe.util.servlet.FileUpload</servlet-class>
+		<init-param>
+			<param-name>upload_path</param-name>
+			<!-- <param-value>C:\Program Files\Apache Software Foundation\Tomcat 6.0\webapps\ems3.0\images\upload_images\</param-value> -->
+			<param-value>images\upload_images\</param-value>
+		</init-param>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>FileUpload</servlet-name>
+		<url-pattern>/servlet/FileUpload</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>FileUploadStudent</servlet-name>
+		<servlet-class>com.fe.ems.util.FileUpload</servlet-class>
+		
+		<init-param>
+			<param-name>upload_path</param-name>
+			<!-- <param-value>H:/apache-tomcat-5.5.33/apache-tomcat-5.5.33/webapps/emsAll/images/upload_images/</param-value> -->
+			<param-value>images\upload_images\</param-value>
+		</init-param>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>FileUploadStudent</servlet-name>
+		<url-pattern>/servlet/FileUploadStudent</url-pattern>
+	</servlet-mapping>	
+	
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>/WEB-INF/classes/log4j.properties</param-value>
+	</context-param>
+	
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/http_error.jsp</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>500</error-code>
+		<location>/http_error.jsp</location>
+	</error-page>
+	
+	<error-page>
+		<exception-type>com.ems.fe.exceptions.AppException</exception-type>
+		<location>/error.jsp</location>
+	</error-page>
+	
+	<filter>
+		<filter-name>AuthFilter</filter-name>
+		<filter-class>com.ems.fe.util.filter.AuthFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>AuthFilter</filter-name>
+		<url-pattern>/admin/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>CharsetEncodingFilter</filter-name>
+		<filter-class>com.ems.fe.util.filter.CharsetEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>GB18030</param-value>
+		</init-param>
+	
+	</filter>
+	<filter-mapping>
+		<filter-name>CharsetEncodingFilter</filter-name>
+		<!-- 
+		<url-pattern>/*</url-pattern>
+		<url-pattern>/sysmgr/*.jsp</url-pattern>
+		 -->
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	
+	<!-- 此处设置考试时间单位秒 -->
+	<context-param>
+		<param-name>time</param-name>
+		<param-value>2700</param-value>
+	</context-param>
+	
+		<!-- 考试试卷ID -->
+	<context-param>
+		<param-name>examname</param-name>
+		<param-value>1206b</param-value>
+	</context-param>
+	
+		<!-- 模拟考试试卷ID -->
+	<context-param>
+		<param-name>moniexamname</param-name>
+		<param-value>1206b1</param-value>
+	</context-param>
+	
+		<!-- 考试试卷数量 -->
+	<context-param>
+		<param-name>exampapernum</param-name>
+		<param-value>40</param-value>
+	</context-param>
+	
+		<!-- 练习试卷数量 -->
+	<context-param>
+		<param-name>lianxinums</param-name>
+		<param-value>10</param-value>
+	</context-param>
+	
+		<!-- 练习试卷开始试卷ID -->
+	<context-param>
+		<param-name>lianxistartid</param-name>
+		<param-value>0</param-value>
+	</context-param>	
+</web-app>
