@@ -23,7 +23,7 @@ import com.ems.fe.util.TransactionHandler;
  *
  */
 public class InitServlet extends HttpServlet {
-
+	
 	public void init() throws ServletException {
 		/**
 		 * 分数和管理员服务初始化
@@ -51,6 +51,8 @@ public class InitServlet extends HttpServlet {
 		TransactionHandler transactionHandler2 = new TransactionHandler();
 		StudentService studentService = (StudentService)transactionHandler2.createProxyObject(new StudentServiceImpl(studentDao));
 		this.getServletContext().setAttribute("studentService", studentService);
+		
+		
 	}
 
 }

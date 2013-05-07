@@ -2,7 +2,6 @@ package com.ems.fe.basedata.service;
 
 import com.ems.fe.basedata.model.Student;
 import com.ems.fe.exceptions.AppException;
-import com.ems.fe.exceptions.DaoException;
 import com.ems.fe.util.PageModel;
 import com.fe.ems.util.Login;
 /**
@@ -58,5 +57,5 @@ public interface StudentService {
 	 * @param spassword
 	 * @throws AppException
 	 */
-	public Login login(String sid,String spassword) throws AppException;
+	public Login login(String sid,String spassword, Login login) throws AppException;
 }

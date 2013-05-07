@@ -11,6 +11,8 @@ import com.ems.fe.basedata.dao.StudentDao;
 import com.ems.fe.basedata.model.Student;
 import com.ems.fe.exceptions.DaoException;
 import com.ems.fe.util.ConnectionManager;
+import com.fe.ems.util.DB;
+import com.fe.ems.util.ExamTime;
 import com.fe.ems.util.Login;
 /**
  * 学生Dao层实现
@@ -199,132 +201,119 @@ public class StudentDao4SQLServerImpl implements StudentDao {
 	}
 
 	@Override
-	public Login login(String sid, String spassword) throws DaoException {
+	public Login login(String sid, String spassword, Login login) throws DaoException {
 			
-			//返回真登陆成功，返回假登陆失败
-			//if(!success)
-			Login login = new Login();
-			if(true)
-			{
-				if(true){
-					PreparedStatement sql = null;
-					ResultSet rs = null;
-					try {
-						Connection conn = ConnectionManager.getConnection();
-						boolean boo = (sid == "" ? false:true) && (spassword == "" ? false:true);// 判断密码是否为空
-						String condition = "select * from student where s_id=?";
-						sql = conn.prepareStatement(condition);
-						if(boo)
+		if(true)
+		{
+			if(true){
+				Connection conn = null;
+				PreparedStatement sql = null;
+				ResultSet rs = null;
+				try {
+					conn = DB.getConnection();
+					boolean boo = (sid == "" ? false:true) && (spassword == "" ? false:true);// 判断密码是否为空
+					String condition = "select * from student where s_id=?";
+					sql = conn.prepareStatement(condition);
+					login.log.info("sid" + "登录系统");
+					if(boo)
+					{
+						sql.setString(1, sid);
+						rs = sql.executeQuery();
+						boolean m = false;
+						rs.next();
+						if(rs.getString("s_password").equals(spassword)){
+							m = true;
+						}
+						if(m == true)
 						{
-							sql.setString(1, sid);
-							rs = sql.executeQuery();
-							boolean m = false;
-							rs.next();
-							if(rs.getString("s_password").equals(spassword)){
-								m = true;
-							}
-							if(m == true)
-							{
-								login.setId(sid);
-								login.setS_password(spassword);
-								login.setS_name(rs.getString("s_name"));
-								login.setBackNews("登录成功");
-								login.setSuccess(true);
-								//login.id = sid;
-								//this.s_password = spassword;
-								//s_name = rs.getString("s_name");
-								//backNews = "登陆成功";
-								//success = true;
-							}
-							else
-							{
-								login.setBackNews("您输入的用户名不存在，或密码不匹配");
-								login.setSuccess(false);
-								//backNews = "您输入的用户名不存在，或密码不匹配";
-								//success = false;
-								
-							}
+							login.id = sid;
+							login.s_password = spassword;
+							login.s_name = rs.getString("s_name");
+							login.backNews = "登陆成功";
+							login.success = true;
 						}
 						else
 						{
-							login.setBackNews("您输入的用户名或密码为空。");
-							login.setSuccess(false);
-							//backNews = "您输入的用户名或密码为空。";
-							//success = false;
+							login.backNews = login.formatIndex + "您输入的用户名不存在，或密码不匹配";
+							login.success = false;
 						}
 						
-					} 
-					catch (SQLException e) {
-						//System.out.println(e);
-						login.setBackNews("您输入的用户名或密码错误！");
-						login.setSuccess(false);
-						//success = false;
-						//backNews = "您输入的用户名或密码错误！";
-					}catch(Exception e){
-						login.setBackNews("您输入的用户名或密码错误！");
-						//backNews = "您输入的用户名或密码错误！";
+						if(ExamTime.getUserProtectMess(login.id,ExamTime.getP_id(login.id,0),0) && ExamTime.getAllowstates(login.id,ExamTime.getP_id(login.id,0),0) == 1){
+							login.backNews = "你已经参加过本次考试，不能再次登录";
+							login.success = false;
+						}
 					}
-					finally {
-						ConnectionManager.close(rs);
-						ConnectionManager.close(sql);
-						//DB.close(rs);
-						//DB.close(sql);
-						//DB.close(conn);
-					} 
+					else
+					{
+						login.backNews = login.formatIndex + "您输入的用户名或密码为空。";
+						login.success = false;
+					}
+					
+				} 
+				catch (SQLException e) {
+					login.success = false;
+					login.backNews = login.formatIndex + "您输入的用户名或密码错误！";
+				}catch(Exception e){
+					login.backNews = login.formatIndex + "您输入的用户名或密码错误！";
 				}
-				/*else if(!adminSuccess){
-					if(type.equals("教师")){
-						Connection conn = null;
-						PreparedStatement sql = null;
-						ResultSet rs = null;
-						try {
-							PaperModel paper = null;
-							conn = DB.getConnection();
-							boolean boo = (id.length() > 0) && (s_password.length() > 0);
-							String condition = "select * from administrator where a_id=? and a_password=?";
-							sql = conn.prepareStatement(condition);
+				finally {
+					DB.close(rs);
+					DB.close(sql);
+					DB.close(conn);
+				} 
+			}
+			/*else if(!adminSuccess){
+				if(type.equals("教师")){
+					Connection conn = null;
+					PreparedStatement sql = null;
+					ResultSet rs = null;
+					try {
+						PaperModel paper = null;
+						conn = DB.getConnection();
+						boolean boo = (id.length() > 0) && (s_password.length() > 0);
+						String condition = "select * from administrator where a_id=? and a_password=?";
+						sql = conn.prepareStatement(condition);
+						
+						if(boo)
+						{
+							sql.setString(1, id);
+							sql.setString(2, s_password);
+							rs = sql.executeQuery();
+							boolean m = rs.next();
 							
-							if(boo)
+							if(m == true)
 							{
-								sql.setString(1, id);
-								sql.setString(2, s_password);
-								rs = sql.executeQuery();
-								boolean m = rs.next();
-								
-								if(m == true)
-								{
-									s_name = rs.getString("a_name");
-									adminBackNews = "登陆成功";
-									adminSuccess = true;
-								}
-								else
-								{
-									adminBackNews = "您输入的用户名不存在，或密码不匹配";
-									adminSuccess = false;
-									
-								}
+								s_name = rs.getString("a_name");
+								adminBackNews = "登陆成功";
+								adminSuccess = true;
 							}
 							else
 							{
 								adminBackNews = "您输入的用户名不存在，或密码不匹配";
 								adminSuccess = false;
+								
 							}
-							
-						} 
-						catch (SQLException e) {
-							System.out.println(e);
+						}
+						else
+						{
+							adminBackNews = "您输入的用户名不存在，或密码不匹配";
 							adminSuccess = false;
-							adminBackNews = "您输入的用户名或密码不存在！！！！！！";
-						}finally {
-							DB.close(rs);
-							DB.close(sql);
-							DB.close(conn);
-						} 
-					}
-				}*/ 
-			}
-			
-			return login;
+						}
+						
+					} 
+					catch (SQLException e) {
+						System.out.println(e);
+						adminSuccess = false;
+						adminBackNews = "您输入的用户名或密码不存在！！！！！！";
+					}finally {
+						DB.close(rs);
+						DB.close(sql);
+						DB.close(conn);
+					} 
+				}
+			}*/ 
 		}
+		return login;
+	}
 
 }

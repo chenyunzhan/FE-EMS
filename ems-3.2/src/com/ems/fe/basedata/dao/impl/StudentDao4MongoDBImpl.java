@@ -141,7 +141,7 @@ public class StudentDao4MongoDBImpl implements StudentDao{
 	}
 
 	@Override
-	public Login login(String sid, String spassword) throws DaoException {
+	public Login login(String sid, String spassword, Login login1) throws DaoException {
 		DB db = MongoDBConnectionManager.getDB();
 		DBCollection coll = db.getCollection("student");
 		BasicDBObject query = new BasicDBObject("s_id", sid);

@@ -70,5 +70,5 @@ public interface StudentDao {
 	 * @return
 	 * @throws DaoException
 	 */
-	public Login login(String sid, String spassword) throws DaoException;
+	public Login login(String sid, String spassword, Login login) throws DaoException;
 }
