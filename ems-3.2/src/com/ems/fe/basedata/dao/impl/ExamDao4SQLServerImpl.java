@@ -187,7 +187,34 @@ public class ExamDao4SQLServerImpl implements ExamDao{
 
 	@Override
 	public ExamPaper findExamPaperByPaperIdAndTimuId(String pId, String timuId) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select e_id, e_name, e_type, e_pic, e_content, e_answer, p_id, p_name, e_course from exampaper where p_id = ? and e_name = ?";
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ExamPaper examPaper = null;
+		try{
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pId);
+			pstmt.setString(2, timuId);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				examPaper = new ExamPaper();
+				examPaper.setPId(rs.getString("p_id"));
+				examPaper.setPName(rs.getString("p_name"));
+				examPaper.setECourse(rs.getString("e_course"));
+				examPaper.setEAnswer(rs.getString("e_answer"));
+				examPaper.setEContent(rs.getString("e_content"));
+				examPaper.setEId(Integer.parseInt(rs.getString("e_id")));
+				examPaper.setEName(rs.getString("e_name"));
+				examPaper.setEType(rs.getString("e_type"));
+			}
+		}catch(SQLException e){
+			System.out.println(e);
+			throw new DaoException(e);
+		}finally{
+			ConnectionManager.close(rs);
+			ConnectionManager.close(pstmt);
+		}
+		return examPaper;
 	}
 }

@@ -1,11 +1,8 @@
 package com.fe.ems.manager;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
-import com.fe.ems.util.DB;
+import com.ems.fe.basedata.model.Student;
+import com.ems.fe.basedata.service.StudentService;
+import com.ems.fe.util.InitService;
 
 public class RegisterManager {
 	
@@ -13,6 +10,8 @@ public class RegisterManager {
 	private String id="",s_name="",s_sex="",s_password="",s_classes="",s_department="",s_grade="",s_pic="",s_phone="",s_email="",s_age="";
 	//用来判别注册成功与否的标志 false为失败，true为成功。
 	private boolean registerstates = false;
+	
+	StudentService studentService = new InitService().getStudentService();
 
 	//乱码转换方法
 	public String handleString(String s){
@@ -142,6 +141,34 @@ public class RegisterManager {
 			backNews = "账号或密码为空，请认真填写！";
 		}
 		
+		if(studentService.findStudentById(id) ==null) {
+			Student student = new Student();
+			student.setSId(id);
+			student.setSPassword(s_password);
+			student.setSName(s_name);
+			student.setSSex(s_sex);
+			student.setSAge(s_age);
+			student.setSClasses(s_classes);
+			student.setSDepartment(s_department);
+			student.setSGrade(s_grade);
+			student.setSPhone(s_phone);
+			student.setSEmail(s_email);
+			student.setSPic(s_pic);
+			studentService.addStudent(student);
+			
+			backNews = "注册成功,请返回到登陆页面进行登陆！";
+			this.registerstates = true;
+			this.id = "";
+			this.s_name = "";
+			this.s_password = "";
+		} else {
+			backNews = "该学号已被人使用！如果确认自己学号被他人使用，请与教师联系。";
+			this.registerstates = false;
+		}
+		
+		
+		/**
+		 * 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try
@@ -186,5 +213,6 @@ public class RegisterManager {
 			DB.close(pstmt);
 			DB.close(conn);
 		} 
+		 */
 	}
 }

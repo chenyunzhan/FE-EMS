@@ -16,6 +16,8 @@ import com.ems.fe.basedata.service.impl.StudentServiceImpl;
 public class InitService {
 
 	StudentService studentService = null;
+	AdminService adminService = null;
+	ExamService examService = null;
 	
 	public InitService() {
 		/**
@@ -24,7 +26,7 @@ public class InitService {
 		AdminDao adminDao = AdminDaoFactory.getInstance().createAdminDao();
 		//AdminDao adminDao = AdminDaoFactory.getInstance().createAdminDao4MongoDB();
 		TransactionHandler transactionHandler = new TransactionHandler();
-		AdminService adminService = (AdminService)transactionHandler.createProxyObject(new AdminServiceImpl(adminDao));
+		adminService = (AdminService)transactionHandler.createProxyObject(new AdminServiceImpl(adminDao));
 		
 		/**
 		 * 试卷服务初始化
@@ -32,7 +34,7 @@ public class InitService {
 		ExamDao examDao = ExamDaoFactory.getInstance().createExamDao();
 		//ExamDao examDao = ExamDaoFactory.getInstance().createExamDao4MongoDB();
 		TransactionHandler transactionHandler1 = new TransactionHandler();
-		ExamService examService = (ExamService)transactionHandler1.createProxyObject(new ExamServiceImpl(examDao));
+		examService = (ExamService)transactionHandler1.createProxyObject(new ExamServiceImpl(examDao));
 		
 		/**
 		 * 学生类服务初始化
@@ -50,7 +52,22 @@ public class InitService {
 	public void setStudentService(StudentService studentService) {
 		this.studentService = studentService;
 	}
-	
+
+	public AdminService getAdminService() {
+		return adminService;
+	}
+
+	public void setAdminService(AdminService adminService) {
+		this.adminService = adminService;
+	}
+
+	public ExamService getExamService() {
+		return examService;
+	}
+
+	public void setExamService(ExamService examService) {
+		this.examService = examService;
+	}
 	
 
 }

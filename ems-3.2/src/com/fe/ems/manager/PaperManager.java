@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fe.*;
+import com.ems.fe.basedata.model.ExamPaper;
+import com.ems.fe.basedata.service.ExamService;
+import com.ems.fe.util.InitService;
 import com.fe.ems.model.PaperModel;
 import com.fe.ems.util.DB;
 
@@ -20,6 +22,8 @@ public class PaperManager {
 		private int pageSize;
 		private int pageNo;
 		private boolean addQuestionState=false;
+		
+		ExamService examService = new InitService().getExamService();
 		
 		
 		public String handleString(String s){
@@ -66,6 +70,22 @@ public class PaperManager {
 		}
 		
 		public void addPaper(PaperModel paper){
+			
+			ExamPaper examPaper = new ExamPaper();
+			examPaper.setEAnswer(paper.getAnswer());
+			examPaper.setEContent(paper.getContent());
+			examPaper.setECourse(paper.getCourse());
+			examPaper.setEId(Integer.parseInt(paper.getId()));
+			examPaper.setEName(paper.getName());
+			examPaper.setEPic(paper.getE_pic());
+			examPaper.setEType(paper.getType());
+			examPaper.setPId(paper.getP_id());
+			examPaper.setPName(paper.getP_name());
+			
+			examService.addExamPaper(examPaper);
+			
+			/**
+			 * 
 			String sql = "insert into exampaper(e_id,e_name, p_id, p_name, e_course, e_content, e_answer, e_type, e_pic) " +
 			"values(?, ?, ?, ?, ?, ?, ?, ?,?)";
 			Connection conn = null;
@@ -84,15 +104,31 @@ public class PaperManager {
 				pstmt.setString(9, paper.getE_pic());
 				pstmt.executeUpdate();
 			}catch(SQLException e) {
-				/*System.err.println("ÃÌº” ‘Ã‚ ß∞‹" + e);
-				e.printStackTrace();*/
+				//System.err.println("ÃÌº” ‘Ã‚ ß∞‹" + e);
+				//e.printStackTrace();
 			}finally {
 				DB.close(pstmt);
 				DB.close(conn);
 			} 
+			*/
 		}
 		
 		public void editPaper(PaperModel paper){
+			
+			ExamPaper examPaper = new ExamPaper();
+			examPaper.setEAnswer(paper.getAnswer());
+			examPaper.setEContent(paper.getContent());
+			examPaper.setECourse(paper.getCourse());
+			examPaper.setEId(Integer.parseInt(paper.getId()));
+			examPaper.setEName(paper.getName());
+			examPaper.setEPic(paper.getE_pic());
+			examPaper.setEType(paper.getType());
+			examPaper.setPId(paper.getP_id());
+			examPaper.setPName(paper.getP_name());
+			examService.modifyExamPaper(examPaper);
+			
+			/**
+			 * 
 			String sql = "update exampaper set e_id=?,e_name=?,p_id=?,p_name=?,e_course=?,e_content=?,e_answer=?,e_type=?,e_pic=? where e_id=?";
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -118,9 +154,13 @@ public class PaperManager {
 				DB.close(pstmt);
 				DB.close(conn);
 			} 
+			 */
 		}
 		
 		public void deletePaper(String id){
+			examService.deleteExamPaperById(id);
+			/**
+			 * 
 			String sql = "delete from exampaper where e_id=?";
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -137,9 +177,17 @@ public class PaperManager {
 				DB.close(pstmt);
 				DB.close(conn);
 			} 
+			 */
 		}
 		
 		public PaperModel findPaperById(String p_id,String e_name) {
+			ExamPaper examPaper = examService.findExamPaperByPaperIdAndTimuId(p_id, e_name);
+			PaperModel paperModel = new PaperModel();
+			paperModel.setContent(examPaper.getEContent());
+			paperModel.setType(examPaper.getEType());
+			paperModel.setAnswer(examPaper.getEAnswer());
+			/**
+			 * 
 			String sql = "select * from exampaper where p_id=? and e_name=?";
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -172,9 +220,19 @@ public class PaperManager {
 				DB.close(conn);
 			} 
 			return paper;
+			 */
+			return paperModel;
 		}
 		
 		public boolean addQuestionResult(String paperId){
+			ExamPaper examPaper = examService.findExamByPid(paperId);
+			if(examPaper == null) {
+				this.addQuestionState = true;
+			}else {
+				this.addQuestionState = false;
+			}
+			/**
+			 * 
 			String sql = "select * from exampaper where e_id=?";
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -200,6 +258,8 @@ public class PaperManager {
 				DB.close(conn);
 			} 
 			
+			return addQuestionState;
+			 */
 			return addQuestionState;
 		}
 		
