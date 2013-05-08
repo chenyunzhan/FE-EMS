@@ -43,7 +43,7 @@ public class DB {
 		Connection conn = null;
 		try {
 			Class.forName(p.getProperty("driver"));
-			conn = DriverManager.getConnection(p.getProperty("url"), p.getProperty("username"), p.getProperty("password"));
+			conn = DriverManager.getConnection(p.getProperty("url"), p.getProperty("username"), p.getProperty("passwordxx"));
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

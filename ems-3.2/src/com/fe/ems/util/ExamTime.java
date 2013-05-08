@@ -350,7 +350,7 @@ public class ExamTime {
 			pid = p_id.substring(0,p_id.length()-2) + "%";
 		}
 		
-		Mess mess = new MessDao4SQLServerImpl().findUserProtectMess(s_id, p_id);
+		Mess mess = new MessDao4SQLServerImpl().getUserProtectMess(s_id, pid);
 		if(mess == null) {
 			exist = false;
 		}else{

@@ -104,6 +104,7 @@ public class MessDao4SQLServerImpl implements MessDao{
 				mess.setP_id(rs.getString("p_id"));
 				mess.setS_id(rs.getString("s_id"));
 				mess.setTimeout(rs.getInt("timeout"));
+				mess.setTimuId(rs.getString("timuId"));
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -146,5 +147,38 @@ public class MessDao4SQLServerImpl implements MessDao{
 		}
 		return mess;
 	}
+	
+	
+	public Mess getUserProtectMess(String s_id, String p_id)
+			throws DaoException {
+		String sql = "select * from messageprotect where s_id = ? and p_id like ?";
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Mess mess = null;
+		try{
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, s_id);
+			pstmt.setString(2, p_id);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				mess = new Mess();
+				mess.setAllowstates(rs.getInt("allowstates"));
+				mess.setAnswer(rs.getString("answer"));
+				mess.setMonistates(rs.getInt("monistates"));
+				mess.setP_id(rs.getString("p_id"));
+				mess.setS_id(rs.getString("s_id"));
+				mess.setTimeout(rs.getInt("timeout"));
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DaoException(e);
+		}finally{
+			ConnectionManager.close(rs);
+			ConnectionManager.close(pstmt);
+		}
+		return mess;
+	}
+
 
 }
