@@ -151,7 +151,6 @@ a:hover img {
 	<!-- end #header -->
 	<!-- end #header-wrapper -->
 	<!-- InstanceBeginEditable name="main" -->
-  <div onmousemove="javascript:refresh()" onmouseover="javascript:refresh()" > <!-- 随时更新图片，如果找不到，则显示默认图片  -->
   <br />
  
   <br /><br /><br />
@@ -160,7 +159,7 @@ a:hover img {
 	  
 	     <!-- 此处放置学生的头像 -->
 	    <div class="exam_photo" >
-	   <img id="studentPhoto" border="1" height="147" width="120" style="border-color:#000000" src="../images/upload_images/<%=Login.getId() %>.jpg" alt="" />
+	   <img id="studentPhoto" border="1" height="147" width="120" style="border-color:#000000" src="../images/upload_images/<%=Login.getId() %>.jpg" alt="" onerror="show_default_photo()"/>
 	    </div>
 	    
         <div class="exam_username STYLE1">用户名<br />
@@ -186,7 +185,7 @@ a:hover img {
         	<IMG src="../images/20080320132844619.gif" width="37" height="37">正在出题中，请稍等！ 
 		</UL>
 		<!-- 试题图片摆放位置 -->
-		<div class="Layer1" ><a href="#"><img height="321" width="200" id="examimage" src="../images/defaultImage.gif" /></a></div>
+		<div class="Layer1" ><img height="321" width="200" id="examimage" src="../images/defaultImage.gif" onerror="show_default_examimage()"/></div>
 		
 		<!-- 填空题位置 -->
 		<div id="Layer2" class="tiankonganswer"><br/>
@@ -206,6 +205,16 @@ border=0>
   <TBODY>
   
   <SCRIPT language=javascript type=text/javascript>
+  
+ 	function show_default_examimage() {
+		var a = document.getElementById("examimage");
+		a.setAttribute("src","../images/spacer.gif");
+	}	
+	
+	function show_default_photo() {
+		var a = document.getElementById("studentPhoto");
+		a.setAttribute("src","../images/spacer.gif");
+	}
   
      //解决返回和刷新问题！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
 	function before(){
@@ -239,9 +248,17 @@ border=0>
 	       		//"<object id='iie' width='0' height='0' classid='CLSID:6BF52A52-394A-11D3-B153-00C04F79FAA6'></object>";
 	    }
 	}   
-	  window.attachEvent("onbeforeunload",before);
-      window.attachEvent('onload',brs);
-	  window.attachEvent('onunload',unload);
+	
+		if (window.addEventListener) { 
+			  window.addEventListener('onbeforeunload', before, false); //firefox 
+			  window.addEventListener('onload', brs, false);
+			  window.addEventListener('onunload', unload, false);
+		} else if (window.attachEvent) { 
+			  window.attachEvent("onbeforeunload",before);
+		      window.attachEvent('onload',brs);
+			  window.attachEvent('onunload',unload); //IE 
+		} 
+	  
   
                             var tal = document.getElementById("ta");
                             var newTr;
@@ -635,11 +652,11 @@ src="../images/se_16.gif" width="21" height="18">已答题</I></DIV>
 						if(req.readyState == 4){
 							if(req.status == 200) {
 								//alert(req.responseText);
-								var type = req.responseXML.getElementsByTagName("msg")[0];
-								var msg = req.responseXML.getElementsByTagName("msg")[1];
+								//var type = req.responseXML.getElementsByTagName("msg")[0];
+								//var msg = req.responseXML.getElementsByTagName("msg")[1];
 								//alert(type);
 								//alert(msg);
-								setMsg(type.childNodes[0].nodeValue, msg.childNodes[0].nodeValue);
+								//setMsg(type.childNodes[0].nodeValue, msg.childNodes[0].nodeValue);
 								//alert(msg.childNodes[0].nodeValue);
 							}
 

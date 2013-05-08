@@ -127,7 +127,7 @@
 		<!-- 考试试卷数量 -->
 	<context-param>
 		<param-name>exampapernum</param-name>
-		<param-value>40</param-value>
+		<param-value>10</param-value>
 	</context-param>
 	
 		<!-- 练习试卷数量 -->

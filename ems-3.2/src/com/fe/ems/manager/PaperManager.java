@@ -5,11 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.ems.fe.basedata.model.ExamPaper;
 import com.ems.fe.basedata.service.ExamService;
 import com.ems.fe.util.InitService;
+import com.ems.fe.util.PageModel;
 import com.fe.ems.model.PaperModel;
 import com.fe.ems.util.DB;
 
@@ -343,6 +345,31 @@ public class PaperManager {
 		 * @return
 		 */
 		public void findAllPaper(int pageNo, int pageSize, String p_id) throws ClassNotFoundException {
+			PageModel pageModel = examService.findAllExam(pageNo, 100, p_id.substring(0, 2), p_id.substring(2, 4), p_id.substring(4));
+			
+			
+			List temp1 = pageModel.getList();
+			
+			List temp2 = new ArrayList();
+			
+			for (Iterator iterator = temp1.iterator(); iterator.hasNext();) {
+				ExamPaper examPaper = (ExamPaper) iterator.next();
+				PaperModel paperModel = new PaperModel();
+				paperModel.setContent(examPaper.getEContent());
+				paperModel.setType(examPaper.getEType());
+				paperModel.setAnswer(examPaper.getEAnswer());
+				paperModel.setName(examPaper.getEName());
+				paperModel.setId(examPaper.getEId() + "");
+				temp2.add(paperModel);
+			}
+			
+			
+			this.setPageSize(pageSize);
+			this.setPageNo(pageNo);
+			this.setList(temp2);
+			this.setTotalRecords(pageModel.getTotalRecords());
+			/**
+			 * 
 			StringBuffer sbSql = new StringBuffer();
 			sbSql.append("select * from exampaper where p_id=?");
 			Connection conn = null;
@@ -362,13 +389,13 @@ public class PaperManager {
 					PaperModel paper = new PaperModel();
 					paper.setId(rs.getString("e_id"));
 					paper.setName(rs.getString("e_name"));
-					/*paper.setP_id(rs.getString("p_id"));
-					paper.setP_name("p_name");
-					paper.setCourse(rs.getString("e_course"));
-					paper.setContent(rs.getString("e_content"));
-					paper.setAnswer(rs.getString("e_answer"));
-					paper.setType(rs.getString("e_type"));
-					paper.setE_pic(rs.getString("e_pic"));*/
+					//paper.setP_id(rs.getString("p_id"));
+					//paper.setP_name("p_name");
+					//paper.setCourse(rs.getString("e_course"));
+					//paper.setContent(rs.getString("e_content"));
+					//paper.setAnswer(rs.getString("e_answer"));
+					//paper.setType(rs.getString("e_type"));
+					//paper.setE_pic(rs.getString("e_pic"));
 					paperList.add(paper);
 				}
 				paperModel = new PaperModel();
@@ -385,6 +412,7 @@ public class PaperManager {
 				DB.close(pstmt);
 				DB.close(conn);
 			} 
+			*/
 		}
 		
 		/**

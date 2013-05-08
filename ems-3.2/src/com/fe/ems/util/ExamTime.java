@@ -264,7 +264,7 @@ public class ExamTime {
 	 */
 	public static int  getAllowstates(String id,String p_id,int monistates)
 	{
-		Mess mess = new InitService().getMessService().findUserProtectMess(id, p_id);
+		Mess mess = new MessDao4SQLServerImpl().findUserProtectMess(id, p_id);
 		return mess == null ? 0 : mess.getAllowstates();
 		/**
 		 * 
