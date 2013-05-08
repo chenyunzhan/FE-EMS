@@ -206,11 +206,10 @@ public class StudentDao4SQLServerImpl implements StudentDao {
 		if(true)
 		{
 			if(true){
-				Connection conn = null;
+				Connection conn = ConnectionManager.getConnection();
 				PreparedStatement sql = null;
 				ResultSet rs = null;
 				try {
-					conn = DB.getConnection();
 					boolean boo = (sid == "" ? false:true) && (spassword == "" ? false:true);// 判断密码是否为空
 					String condition = "select * from student where s_id=?";
 					sql = conn.prepareStatement(condition);
@@ -257,9 +256,8 @@ public class StudentDao4SQLServerImpl implements StudentDao {
 					login.backNews = login.formatIndex + "您输入的用户名或密码错误！";
 				}
 				finally {
-					DB.close(rs);
-					DB.close(sql);
-					DB.close(conn);
+					ConnectionManager.close(rs);
+					ConnectionManager.close(sql);
 				} 
 			}
 			/*else if(!adminSuccess){

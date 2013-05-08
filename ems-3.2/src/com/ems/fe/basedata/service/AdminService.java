@@ -1,15 +1,12 @@
 package com.ems.fe.basedata.service;
 
-import java.sql.Connection;
 import java.util.List;
 
 import com.ems.fe.basedata.model.Admin;
 import com.ems.fe.basedata.model.ExamPaper;
 import com.ems.fe.basedata.model.Score;
-import com.ems.fe.basedata.model.ScoreView;
 import com.ems.fe.basedata.model.Student;
 import com.ems.fe.exceptions.AppException;
-import com.ems.fe.exceptions.DaoException;
 import com.ems.fe.util.PageModel;
 /**
  * 管理员服务层接口

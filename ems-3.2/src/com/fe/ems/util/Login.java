@@ -1,11 +1,13 @@
 package com.fe.ems.util;
 
+import javax.servlet.http.HttpServlet;
+
 import org.apache.log4j.Logger;
 
 import com.ems.fe.basedata.service.StudentService;
 import com.ems.fe.util.InitService;
 
-public class Login{
+public class Login extends HttpServlet{
 	
 		public Logger log = Logger.getLogger(Login.class);
 
@@ -88,11 +90,7 @@ public class Login{
 		public void setAdminSuccess(boolean adminSuccess) {
 			this.adminSuccess = adminSuccess;
 		}
-		public void login(String sid,String spassword){
-			
-			//·µ»ØÕæµÇÂ½³É¹¦£¬·µ»Ø¼ÙµÇÂ½Ê§°Ü
-			//if(!success)
-			StudentService studentService = new InitService().getStudentService();
+		public void login(String sid,String spassword, StudentService studentService){
 			studentService.login(sid, spassword, this);
 			
 		}

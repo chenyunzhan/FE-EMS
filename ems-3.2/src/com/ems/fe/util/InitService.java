@@ -4,20 +4,26 @@ import com.ems.fe.basedata.dao.AdminDao;
 import com.ems.fe.basedata.dao.AdminDaoFactory;
 import com.ems.fe.basedata.dao.ExamDao;
 import com.ems.fe.basedata.dao.ExamDaoFactory;
+import com.ems.fe.basedata.dao.MessDao;
+import com.ems.fe.basedata.dao.MessDaoFactory;
 import com.ems.fe.basedata.dao.StudentDao;
 import com.ems.fe.basedata.dao.StudentDaoFactory;
 import com.ems.fe.basedata.service.AdminService;
 import com.ems.fe.basedata.service.ExamService;
+import com.ems.fe.basedata.service.MessService;
 import com.ems.fe.basedata.service.StudentService;
 import com.ems.fe.basedata.service.impl.AdminServiceImpl;
 import com.ems.fe.basedata.service.impl.ExamServiceImpl;
+import com.ems.fe.basedata.service.impl.MessServiceImpl;
 import com.ems.fe.basedata.service.impl.StudentServiceImpl;
 
 public class InitService {
 
-	StudentService studentService = null;
-	AdminService adminService = null;
-	ExamService examService = null;
+	private StudentService studentService = null;
+	private AdminService adminService = null;
+	private ExamService examService = null;
+	private MessService messService = null;
+	
 	
 	public InitService() {
 		/**
@@ -43,6 +49,13 @@ public class InitService {
 		//StudentDao studentDao = StudentDaoFactory.getInstance().createStudentDao4MongoDB();
 		TransactionHandler transactionHandler2 = new TransactionHandler();
 		studentService = (StudentService)transactionHandler2.createProxyObject(new StudentServiceImpl(studentDao));
+		
+		/**
+		 * 答题保护服务初始化
+		 */
+		MessDao messDao = MessDaoFactory.getInstance().createMessDao4SQLServer();
+		TransactionHandler transactionHandler3 = new TransactionHandler();
+		messService = (MessService) transactionHandler3.createProxyObject(new MessServiceImpl(messDao));
 	}
 
 	public StudentService getStudentService() {
@@ -68,6 +81,16 @@ public class InitService {
 	public void setExamService(ExamService examService) {
 		this.examService = examService;
 	}
+
+	public MessService getMessService() {
+		return messService;
+	}
+
+	public void setMessService(MessService messService) {
+		this.messService = messService;
+	}
+	
+	
 	
 
 }

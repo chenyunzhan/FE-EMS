@@ -1,9 +1,12 @@
 <%@ page language="java" import="java.util.*" pageEncoding="gbk"%>
 <%@ page import="com.fe.ems.util.Login" %>
+<%@ page import="com.ems.fe.basedata.service.*" %> 
 
 <jsp:useBean id="register" class="com.fe.ems.manager.RegisterManager" scope="session"/>
 <jsp:useBean id="Login" class="com.fe.ems.util.Login" scope="session" />
-
+<%
+StudentService studentService = (StudentService)this.getServletContext().getAttribute("studentService");
+%>
 <%	register.setRegisterstates(false); %>
 <%
 	// 属性id,password用来接收用户输入的账号密码。
@@ -25,7 +28,7 @@
 	}
 	else{
 		//Login类中的login方法，用来判断用户的输入是或否和数据库中的数据一致，一致变量issuccess为true,否则为false.
-		Login.login(id,password);
+		Login.login(id,password, studentService);
 	}
 	
 %> 
