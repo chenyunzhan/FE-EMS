@@ -7,6 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ems.fe.basedata.model.Score;
+import com.ems.fe.basedata.service.ExamService;
+import com.ems.fe.basedata.service.ScoreService;
+import com.ems.fe.basedata.service.StudentService;
+import com.ems.fe.util.InitService;
 import com.fe.*;
 import com.fe.ems.model.UserModel;
 import com.fe.ems.util.DB;
@@ -16,6 +21,8 @@ public class UserManager {
 	private int totalRecords;
 	private int pageSize;
 	private int pageNo;
+	
+	ScoreService scoreService = new InitService().getScoreService();
 	
 	public String handleString(String s){
 		try{
@@ -77,6 +84,16 @@ public class UserManager {
 	}
 	
 	public void modifyScore(UserModel user,String p_id) {
+		
+		Score score = new Score();
+		score.setPaperId(p_id);
+		score.setStudentId(user.getId());
+		score.setScore(user.getScore());
+		scoreService.addScore(score);
+		
+		
+		/**
+		 * 
 		String sql = "INSERT INTO score VALUES (?,?,?)";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -93,6 +110,7 @@ public class UserManager {
 			DB.close(pstmt);
 			DB.close(conn);
 		} 
+		 */
 	}
 	
 	public void findAllUser(int pageNo, int pageSize,int checkstates) {

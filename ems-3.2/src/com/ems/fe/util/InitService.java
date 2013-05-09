@@ -6,15 +6,19 @@ import com.ems.fe.basedata.dao.ExamDao;
 import com.ems.fe.basedata.dao.ExamDaoFactory;
 import com.ems.fe.basedata.dao.MessDao;
 import com.ems.fe.basedata.dao.MessDaoFactory;
+import com.ems.fe.basedata.dao.ScoreDao;
+import com.ems.fe.basedata.dao.ScoreDaoFactory;
 import com.ems.fe.basedata.dao.StudentDao;
 import com.ems.fe.basedata.dao.StudentDaoFactory;
 import com.ems.fe.basedata.service.AdminService;
 import com.ems.fe.basedata.service.ExamService;
 import com.ems.fe.basedata.service.MessService;
+import com.ems.fe.basedata.service.ScoreService;
 import com.ems.fe.basedata.service.StudentService;
 import com.ems.fe.basedata.service.impl.AdminServiceImpl;
 import com.ems.fe.basedata.service.impl.ExamServiceImpl;
 import com.ems.fe.basedata.service.impl.MessServiceImpl;
+import com.ems.fe.basedata.service.impl.ScoreServiceImpl;
 import com.ems.fe.basedata.service.impl.StudentServiceImpl;
 
 public class InitService {
@@ -23,6 +27,7 @@ public class InitService {
 	private AdminService adminService = null;
 	private ExamService examService = null;
 	private MessService messService = null;
+	private ScoreService scoreService = null;
 	
 	
 	public InitService() {
@@ -56,6 +61,10 @@ public class InitService {
 		MessDao messDao = MessDaoFactory.getInstance().createMessDao4SQLServer();
 		TransactionHandler transactionHandler3 = new TransactionHandler();
 		messService = (MessService) transactionHandler3.createProxyObject(new MessServiceImpl(messDao));
+		
+		ScoreDao scoreDao = ScoreDaoFactory.getInstance().createScoreDao4SQLServer();
+		TransactionHandler transactionHandler4 = new TransactionHandler();
+		scoreService = (ScoreService) transactionHandler4.createProxyObject(new ScoreServiceImpl(scoreDao));
 	}
 
 	public StudentService getStudentService() {
@@ -89,6 +98,16 @@ public class InitService {
 	public void setMessService(MessService messService) {
 		this.messService = messService;
 	}
+
+	public ScoreService getScoreService() {
+		return scoreService;
+	}
+
+	public void setScoreService(ScoreService scoreService) {
+		this.scoreService = scoreService;
+	}
+	
+	
 	
 	
 	
