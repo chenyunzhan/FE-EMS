@@ -16,5 +16,7 @@ public interface MessDao {
 	public Mess findUserProtectMess(String s_id, String p_id) throws DaoException;
 
 	public Mess findUserProtectMessByUserId(String id, int monistates) throws DaoException;
+	
+	public Mess getUserProtectMess(String s_id, String p_id) throws DaoException;
 
 }

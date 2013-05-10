@@ -7,13 +7,17 @@ import com.ems.fe.basedata.dao.AdminDao;
 import com.ems.fe.basedata.dao.AdminDaoFactory;
 import com.ems.fe.basedata.dao.ExamDao;
 import com.ems.fe.basedata.dao.ExamDaoFactory;
+import com.ems.fe.basedata.dao.MessDao;
+import com.ems.fe.basedata.dao.MessDaoFactory;
 import com.ems.fe.basedata.dao.StudentDao;
 import com.ems.fe.basedata.dao.StudentDaoFactory;
 import com.ems.fe.basedata.service.AdminService;
 import com.ems.fe.basedata.service.ExamService;
+import com.ems.fe.basedata.service.MessService;
 import com.ems.fe.basedata.service.StudentService;
 import com.ems.fe.basedata.service.impl.AdminServiceImpl;
 import com.ems.fe.basedata.service.impl.ExamServiceImpl;
+import com.ems.fe.basedata.service.impl.MessServiceImpl;
 import com.ems.fe.basedata.service.impl.StudentServiceImpl;
 import com.ems.fe.util.TransactionHandler;
 
@@ -28,8 +32,8 @@ public class InitServlet extends HttpServlet {
 		/**
 		 * 分数和管理员服务初始化
 		 */
-		AdminDao adminDao = AdminDaoFactory.getInstance().createAdminDao();
-		//AdminDao adminDao = AdminDaoFactory.getInstance().createAdminDao4MongoDB();
+		//AdminDao adminDao = AdminDaoFactory.getInstance().createAdminDao();
+		AdminDao adminDao = AdminDaoFactory.getInstance().createAdminDao4MongoDB();
 		TransactionHandler transactionHandler = new TransactionHandler();
 		AdminService adminService = (AdminService)transactionHandler.createProxyObject(new AdminServiceImpl(adminDao));
 		this.getServletContext().setAttribute("adminService", adminService);
@@ -37,8 +41,8 @@ public class InitServlet extends HttpServlet {
 		/**
 		 * 试卷服务初始化
 		 */
-		ExamDao examDao = ExamDaoFactory.getInstance().createExamDao();
-		//ExamDao examDao = ExamDaoFactory.getInstance().createExamDao4MongoDB();
+		//ExamDao examDao = ExamDaoFactory.getInstance().createExamDao();
+		ExamDao examDao = ExamDaoFactory.getInstance().createExamDao4MongoDB();
 		TransactionHandler transactionHandler1 = new TransactionHandler();
 		ExamService examService = (ExamService)transactionHandler1.createProxyObject(new ExamServiceImpl(examDao));
 		this.getServletContext().setAttribute("examService", examService);
@@ -46,13 +50,20 @@ public class InitServlet extends HttpServlet {
 		/**
 		 * 学生类服务初始化
 		 */
-		StudentDao studentDao = StudentDaoFactory.getInstance().createStudentDao();
-		//StudentDao studentDao = StudentDaoFactory.getInstance().createStudentDao4MongoDB();
+		//StudentDao studentDao = StudentDaoFactory.getInstance().createStudentDao();
+		StudentDao studentDao = StudentDaoFactory.getInstance().createStudentDao4MongoDB();
 		TransactionHandler transactionHandler2 = new TransactionHandler();
 		StudentService studentService = (StudentService)transactionHandler2.createProxyObject(new StudentServiceImpl(studentDao));
 		this.getServletContext().setAttribute("studentService", studentService);
 		
-		
+		/**
+		 * 答题保护服务初始化
+		 */
+		//MessDao messDao = MessDaoFactory.getInstance().createMessDao4SQLServer();
+		MessDao messDao = MessDaoFactory.getInstance().createMessDao4MongoDB();
+		TransactionHandler transactionHandler3 = new TransactionHandler();
+		MessService messService = (MessService) transactionHandler3.createProxyObject(new MessServiceImpl(messDao));
+		this.getServletContext().setAttribute("messService", messService);
 	}
 
 }

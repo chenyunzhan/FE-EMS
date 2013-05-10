@@ -34,35 +34,37 @@ public class InitService {
 		/**
 		 * 分数和管理员服务初始化
 		 */
-		AdminDao adminDao = AdminDaoFactory.getInstance().createAdminDao();
-		//AdminDao adminDao = AdminDaoFactory.getInstance().createAdminDao4MongoDB();
+		//AdminDao adminDao = AdminDaoFactory.getInstance().createAdminDao();
+		AdminDao adminDao = AdminDaoFactory.getInstance().createAdminDao4MongoDB();
 		TransactionHandler transactionHandler = new TransactionHandler();
 		adminService = (AdminService)transactionHandler.createProxyObject(new AdminServiceImpl(adminDao));
 		
 		/**
 		 * 试卷服务初始化
 		 */
-		ExamDao examDao = ExamDaoFactory.getInstance().createExamDao();
-		//ExamDao examDao = ExamDaoFactory.getInstance().createExamDao4MongoDB();
+		//ExamDao examDao = ExamDaoFactory.getInstance().createExamDao();
+		ExamDao examDao = ExamDaoFactory.getInstance().createExamDao4MongoDB();
 		TransactionHandler transactionHandler1 = new TransactionHandler();
 		examService = (ExamService)transactionHandler1.createProxyObject(new ExamServiceImpl(examDao));
 		
 		/**
 		 * 学生类服务初始化
 		 */
-		StudentDao studentDao = StudentDaoFactory.getInstance().createStudentDao();
-		//StudentDao studentDao = StudentDaoFactory.getInstance().createStudentDao4MongoDB();
+		//StudentDao studentDao = StudentDaoFactory.getInstance().createStudentDao();
+		StudentDao studentDao = StudentDaoFactory.getInstance().createStudentDao4MongoDB();
 		TransactionHandler transactionHandler2 = new TransactionHandler();
 		studentService = (StudentService)transactionHandler2.createProxyObject(new StudentServiceImpl(studentDao));
 		
 		/**
 		 * 答题保护服务初始化
 		 */
-		MessDao messDao = MessDaoFactory.getInstance().createMessDao4SQLServer();
+		//MessDao messDao = MessDaoFactory.getInstance().createMessDao4SQLServer();
+		MessDao messDao = MessDaoFactory.getInstance().createMessDao4MongoDB();
 		TransactionHandler transactionHandler3 = new TransactionHandler();
 		messService = (MessService) transactionHandler3.createProxyObject(new MessServiceImpl(messDao));
 		
-		ScoreDao scoreDao = ScoreDaoFactory.getInstance().createScoreDao4SQLServer();
+		//ScoreDao scoreDao = ScoreDaoFactory.getInstance().createScoreDao4SQLServer();
+		ScoreDao scoreDao = ScoreDaoFactory.getInstance().createScoreDao4MongoDB();
 		TransactionHandler transactionHandler4 = new TransactionHandler();
 		scoreService = (ScoreService) transactionHandler4.createProxyObject(new ScoreServiceImpl(scoreDao));
 	}

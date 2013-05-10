@@ -3,10 +3,15 @@
 <%@ page import="com.fe.ems.manager.*" %>
 <%@ page import="com.fe.ems.util.*" %>
 <%@ page import="com.fe.ems.model.*" %>
+<%@ page import="com.ems.fe.basedata.service.*" %>
 
 <jsp:useBean id="paperManager" class="com.fe.ems.manager.PaperManager" scope="session"/>
 <jsp:useBean id="Login" class="com.fe.ems.util.Login" scope="session" />
 <jsp:useBean id="examtime" class="com.fe.ems.util.ExamTime" scope="session"/>
+
+<%
+MessService messService = (MessService)this.getServletContext().getAttribute("messService");
+%>
 
 <%
 	Random random = new Random();
@@ -20,13 +25,13 @@
 %>
 
 <%
-	if(!examtime.getUserProtectMess(Login.getId(),examtime.getP_id(),0)){
+	if(!examtime.getUserProtectMess(Login.getId(),examtime.getP_id(),0, messService)){
 		examtime.addUserProtectMess(Login.getId(),p_id,Integer.parseInt(this.getServletContext().getInitParameter("time")),"#",0,0);
 	}
 	else{
 		examtime.setP_id(examtime.getP_id(Login.getId(),0));
 	}
-	if(examtime.getAllowstates(Login.getId(),examtime.getP_id(),0) == 0 && Login.isSuccess() && examtime.isPreventfresh())
+	if(examtime.getAllowstates(Login.getId(),examtime.getP_id(),0, messService) == 0 && Login.isSuccess() && examtime.isPreventfresh())
 	{
 		examtime.setPreventfresh(false);
 %>

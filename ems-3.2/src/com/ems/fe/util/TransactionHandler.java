@@ -28,27 +28,30 @@ public class TransactionHandler implements InvocationHandler {
 
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
-		Connection conn = ConnectionManager.getConnection();
+		//Connection conn = ConnectionManager.getConnection();
+		Connection conn = null;
 		Object retVal = null;
 		try{
 			//开启事务
 			if(method.getName().startsWith("add")||
 			   method.getName().startsWith("delete")||
 			   method.getName().startsWith("modify")){
-				conn.setAutoCommit(false);
+				if(null != conn) {
+					conn.setAutoCommit(false);
+				}
 			}
 			log.info(method.getName() + "--beginTransaction");
 			//调用目标对象上的业务逻辑方法
 			retVal = method.invoke(this.targetObject, args);
 			
 			//提交事务
-			if(!conn.getAutoCommit()){
+			if(null != conn && !conn.getAutoCommit()){
 				conn.commit();
 			}
 			log.info(method.getName() + "--commitTransaction");
 		}catch(AppException e){
 			//回滚事务
-			if(!conn.getAutoCommit()){
+			if(null != conn && !conn.getAutoCommit()){
 				conn.rollback();
 			}
 			throw e;
@@ -57,13 +60,13 @@ public class TransactionHandler implements InvocationHandler {
 			e.printStackTrace();
 			//回滚事务
 			log.info(e);
-			if(!conn.getAutoCommit()){
+			if(null != conn && !conn.getAutoCommit()){
 				conn.rollback();
 			}
 			log.info(method.getName() + "--rollbackTransaction");
 			throw new AppException("操作失败！");
 		}finally{
-			if(!conn.getAutoCommit()){
+			if(null != conn && !conn.getAutoCommit()){
 				conn.setAutoCommit(true);
 			}
 			ConnectionManager.closeConnection();

@@ -141,14 +141,12 @@ public class StudentDao4MongoDBImpl implements StudentDao{
 	}
 
 	@Override
-	public Login login(String sid, String spassword, Login login1) throws DaoException {
+	public Login login(String sid, String spassword, Login login) throws DaoException {
 		DB db = MongoDBConnectionManager.getDB();
 		DBCollection coll = db.getCollection("student");
-		BasicDBObject query = new BasicDBObject("s_id", sid);
+		BasicDBObject query = new BasicDBObject("s_id", sid).append("s_password", spassword);
 		DBCursor cursor = coll.find(query);
-		Login login = null;
 		try	{
-		   login = new Login();
 		   login.setBackNews("您输入的用户名不存在，或密码不匹配");
 		   login.setSuccess(false);
 		   while(cursor.hasNext()) {

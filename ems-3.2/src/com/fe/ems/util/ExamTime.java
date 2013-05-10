@@ -303,6 +303,55 @@ public class ExamTime {
 		 */
 	}
 	
+	
+	/**
+	 * 获得用户考试权限
+	 * @param id
+	 * @return
+	 */
+	public static int  getAllowstates(String id,String p_id,int monistates, MessService messService)
+	{
+		//Mess mess = new MessDao4SQLServerImpl().findUserProtectMess(id, p_id);
+		Mess mess = messService.findUserProtectMess(id, p_id);
+		return mess == null ? 0 : mess.getAllowstates();
+		/**
+		 * 
+		int allowstates = 0;
+		String sql = "select allowstates from messageprotect where s_id=? and p_id=? and monistates=?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		PaperModel paper = null;
+		try {
+			conn = DB.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, p_id);
+			pstmt.setInt(3, monistates);
+			rs = pstmt.executeQuery();
+			if (rs.next()) 
+			{
+				allowstates = rs.getInt(1);
+			}
+			else
+			{
+			}
+		}
+		catch(SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			DB.close(rs);
+			DB.close(pstmt);
+			DB.close(conn);
+		} 
+		return allowstates;
+		 */
+	}
+
+	
 	/**
 	 * 设置用户考试权限
 	 * @param allowstates
@@ -330,6 +379,78 @@ public class ExamTime {
 			DB.close(pstmt);
 			DB.close(conn);
 		}
+		 */
+	}
+	
+	/**
+	 * 查询数据库中是否存在用户的保护信息，不存在，返回false，存在返回true。
+	 * @param s_id
+	 * @param p_id
+	 * @return
+	 */
+	public static boolean getUserProtectMess(String s_id, String p_id,int monistates, MessService messService){
+		
+		boolean exist = true;
+		String pid = "";
+		if(p_id.length() == 6){
+			pid = p_id.substring(0,p_id.length()-1) + "%";
+		}
+		if(p_id.length() == 7){
+			pid = p_id.substring(0,p_id.length()-2) + "%";
+		}
+		
+		//Mess mess = new MessDao4SQLServerImpl().getUserProtectMess(s_id, pid);
+		Mess mess = messService.getUserProtectMess(s_id, pid);
+		if(mess == null) {
+			exist = false;
+		}else{
+			exist = true;
+		}
+		return exist;
+		/**
+		 * 
+		boolean exist = true;
+		String pid = "";
+		if(p_id.length() == 6){
+			pid = p_id.substring(0,p_id.length()-1) + "%";
+		}
+		if(p_id.length() == 7){
+			pid = p_id.substring(0,p_id.length()-2) + "%";
+		}
+		
+		String sql = "select * from messageprotect where s_id=? and p_id like ? and monistates=?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		PaperModel paper = null;
+		try {
+			conn = DB.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, s_id);
+			pstmt.setString(2, pid);
+			pstmt.setInt(3, monistates);
+			rs = pstmt.executeQuery();
+			if (rs.next()) 
+			{
+				exist = true;
+			}
+			else
+			{
+				exist = false;
+			}
+		}
+		catch(SQLException e) 
+		{
+			e.printStackTrace();
+			exist = false;
+		}
+		finally 
+		{
+			DB.close(rs);
+			DB.close(pstmt);
+			DB.close(conn);
+		} 
+		return exist;
 		 */
 	}
 	
@@ -603,6 +724,54 @@ public class ExamTime {
 	 * @param id
 	 * @return
 	 */
+	public static String getP_id(String id,int monistates, MessService messService)
+	{
+		//Mess mess = new InitService().getMessService().findUserProtectMessByUserId(id, monistates);
+		Mess mess = messService.findUserProtectMessByUserId(id, monistates);
+		//Mess mess = new MessDao4SQLServerImpl().findUserProtectMessByUserId(id, monistates);
+		return mess == null ? "" : mess.getP_id();
+		/**
+		 * 
+		String pid = "";
+		String sql = "select p_id from messageprotect where s_id=? and monistates=?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		PaperModel paper = null;
+		try {
+			conn = DB.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, monistates);
+			rs = pstmt.executeQuery();
+			if (rs.next()) 
+			{
+				pid = rs.getString(1);
+			}
+			else
+			{
+			}
+		}
+		catch(SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			DB.close(rs);
+			DB.close(pstmt);
+			DB.close(conn);
+		} 
+		return pid;
+		 */
+	}	
+	
+	
+	/**
+	 * 获得用户所考试卷的p_id
+	 * @param id
+	 * @return
+	 */
 	public static String getP_id(String id,int monistates)
 	{
 		//Mess mess = new InitService().getMessService().findUserProtectMessByUserId(id, monistates);
@@ -642,7 +811,7 @@ public class ExamTime {
 		} 
 		return pid;
 		 */
-	}	
+	}
 	
 	/**
 	 * 删除用户的保护信息

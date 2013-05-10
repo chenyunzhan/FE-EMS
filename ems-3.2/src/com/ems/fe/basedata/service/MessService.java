@@ -14,4 +14,6 @@ public interface MessService {
 	public Mess findUserProtectMess(String s_id,String p_id)throws AppException;
 
 	public Mess findUserProtectMessByUserId(String id, int monistates) throws AppException;
+	
+	public Mess getUserProtectMess(String s_id, String pid) throws AppException;
 }

@@ -24,15 +24,6 @@ public class Login extends HttpServlet{
 		public StringBuffer sb = new StringBuffer();
 		//String adminBackNews = "";//反馈管理员登录信息
 		
-		public String handleString(String s){
-			try{
-				byte bb[] = s.getBytes("gbk");
-				s = new String(bb);
-			}
-			catch(Exception e){}
-			return s;
-		}
-		
 		public boolean isB() {
 			return b;
 		}
@@ -46,7 +37,7 @@ public class Login extends HttpServlet{
 		}
 
 		public void setS_name(String s_name) {
-			this.s_name = handleString(s_name);
+			this.s_name = (s_name);
 		}
 		public boolean isExamstates() {
 			return examstates;
@@ -74,7 +65,7 @@ public class Login extends HttpServlet{
 			return id;
 		}
 		public void setId(String id) {
-			this.id = handleString(id);
+			this.id = (id);
 		}
 		public String getS_password() {
 			return s_password;

@@ -69,5 +69,14 @@ public class MessServiceImpl implements MessService{
 		} 
 	}
 
+	@Override
+	public Mess getUserProtectMess(String s_id, String pid) throws AppException {
+		try{
+			return messDao.getUserProtectMess(s_id, pid);
+		} catch(DaoException e) {
+			throw new AppException("≈–∂œ”√ªß «∑Òøº ‘ ß∞‹£°");
+		} 
+	}
+
 
 }
