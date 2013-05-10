@@ -29,7 +29,7 @@ MessService messService = (MessService)this.getServletContext().getAttribute("me
 		examtime.addUserProtectMess(Login.getId(),p_id,Integer.parseInt(this.getServletContext().getInitParameter("time")),"#",0,0);
 	}
 	else{
-		examtime.setP_id(examtime.getP_id(Login.getId(),0));
+		examtime.setP_id(examtime.getP_id(Login.getId(),0, messService));
 	}
 	if(examtime.getAllowstates(Login.getId(),examtime.getP_id(),0, messService) == 0 && Login.isSuccess() && examtime.isPreventfresh())
 	{
@@ -384,7 +384,7 @@ src="../images/se_16.gif" width="21" height="18">已答题</I></DIV>
                 var keynum;//键盘对应keycode
                 var index = 1;//当前第几题
                  <%  
-	                 if(examtime.getUserProtectMess(Login.getId(),examtime.getP_id(),0) && !examtime.getAnswer(Login.getId(),examtime.getP_id()).equals("#")){
+	                 if(examtime.getUserProtectMess(Login.getId(),examtime.getP_id(),0, messService) && !examtime.getAnswer(Login.getId(),examtime.getP_id()).equals("#")){
 		             		int[] temp = new int[100];
 		             		temp = examtime.gettimuId(Login.getId(),examtime.getP_id());
 		             		for(int l=0; l<100; l++){
@@ -430,7 +430,7 @@ src="../images/se_16.gif" width="21" height="18">已答题</I></DIV>
     		    //该处用来反馈用户的答案
                         <%
                       		
-                          if(examtime.getUserProtectMess(Login.getId(),examtime.getP_id(),0) && !examtime.getAnswer(Login.getId(),examtime.getP_id()).equals("#"))
+                          if(examtime.getUserProtectMess(Login.getId(),examtime.getP_id(),0, messService) && !examtime.getAnswer(Login.getId(),examtime.getP_id()).equals("#"))
                           {
                         	  int[] shunxu = examtime.gettimuId(Login.getId(),examtime.getP_id());//获得用户题目顺序的数组。
   	                        
@@ -605,7 +605,7 @@ src="../images/se_16.gif" width="21" height="18">已答题</I></DIV>
 						}
                         var uri = "../server/lianxi.jsp?id=" + timuId[index-1];
                         var obj = document.getElementById("examimage");//获得题目图片显示的id
-                        obj.src = "../images/upload_images/" + "<%=examtime.getP_id(Login.getId(),0) %>" + timuId[index-1] + ".jpg";
+                        obj.src = "../images/upload_images/" + "<%=examtime.getP_id(Login.getId(),0, messService) %>" + timuId[index-1] + ".jpg";
 
                         if(window.XMLHttpRequest){
 							req = new XMLHttpRequest();
