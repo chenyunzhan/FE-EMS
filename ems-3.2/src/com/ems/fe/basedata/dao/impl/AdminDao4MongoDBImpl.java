@@ -7,6 +7,7 @@ import com.ems.fe.basedata.dao.AdminDao;
 import com.ems.fe.basedata.model.Admin;
 import com.ems.fe.basedata.model.ExamPaper;
 import com.ems.fe.basedata.model.Score;
+import com.ems.fe.basedata.model.ScoreView;
 import com.ems.fe.basedata.model.Student;
 import com.ems.fe.exceptions.DaoException;
 import com.ems.fe.util.MongoDBConnectionManager;
@@ -58,8 +59,37 @@ public class AdminDao4MongoDBImpl implements AdminDao{
 	@Override
 	public List findAllScore(int pageNo, int pageSize, String sGrade,
 			String sDepartmentId, String sClasses) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		DB db = MongoDBConnectionManager.getDB();
+		DBCollection coll = db.getCollection("score");
+		DBCursor cursor = coll.find();
+		List list = new ArrayList();
+		try {
+		   while(cursor.hasNext()) {
+			   ScoreView s = new ScoreView();
+			   DBObject o = cursor.next();
+			   BasicDBObject query1 = new BasicDBObject("s_id", o.get("student_id").toString()); 
+			   BasicDBObject query2 = new BasicDBObject("p_id", o.get("paper_id").toString()); 
+			   DBCollection students = db.getCollection("student");
+			   DBCollection exampapers = db.getCollection("exampaper");
+			   DBObject student = students.findOne(query1);
+			   DBObject exampaper = exampapers.findOne(query2);
+			   s.setV_paperId(exampaper.get("p_id").toString());
+			   s.setV_pName(exampaper.get("p_name").toString());
+			   s.setV_sClasses(student.get("s_classes").toString());
+			   s.setV_score(Integer.parseInt(o.get("score").toString()));
+			   s.setV_scoreId(o.get("score_id").toString());
+			   s.setV_sDepartment(student.get("s_department").toString());
+			   s.setV_sDepartmentId(student.get("s_department_id").toString());
+			   s.setV_sGrade(student.get("s_grade").toString());
+			   s.setV_sName(student.get("s_name").toString());
+			   s.setV_studentId(student.get("s_id").toString());
+			   list.add(s);
+		       //System.out.println(cursor.next());
+		   }
+		} finally {
+		   cursor.close();
+		}
+		return list;
 	}
 
 	@Override
