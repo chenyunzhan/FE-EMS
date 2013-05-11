@@ -56,13 +56,13 @@ MessService messService = (MessService)this.getServletContext().getAttribute("me
 
 <%	//在此处判断用户是否正常交卷，如果没有正常交卷则重新跳转到答题界面
 	String p_id = examtime.getP_id(Login.getId(),0, messService);
-	if(examtime.getUserProtectMess(Login.getId(),p_id,0, messService) && examtime.getAllowstates(Login.getId(),p_id,0) == 0 && !examtime.isPreventfresh()){
+	if(examtime.getUserProtectMess(Login.getId(),p_id,0, messService) && examtime.getAllowstates(Login.getId(),p_id,0, messService) == 0 && !examtime.isPreventfresh()){
 		examtime.setPreventfresh(true);
 		out.println("<script>");
 		out.println("divMessageBox('考试提示','您没有正常提交试卷,正在跳转到考试页面!',300,130)");
 		out.println("</script>");
 	}
-	else if(examtime.getUserProtectMess(Login.getId(),p_id,0, messService) && examtime.getAllowstates(Login.getId(),p_id,0) == 1){
+	else if(examtime.getUserProtectMess(Login.getId(),p_id,0, messService) && examtime.getAllowstates(Login.getId(),p_id,0, messService) == 1){
 		System.out.println("你已经参加过本次考试，不能再次进入。");
 		response.sendRedirect("exit.jsp");
 	}

@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ems.fe.basedata.dao.StudentDao;
+import com.ems.fe.basedata.model.Mess;
 import com.ems.fe.basedata.model.Student;
 import com.ems.fe.exceptions.DaoException;
 import com.ems.fe.util.MongoDBConnectionManager;
+import com.fe.ems.util.ExamTime;
 import com.fe.ems.util.Login;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -157,6 +159,25 @@ public class StudentDao4MongoDBImpl implements StudentDao{
 			   login.setS_password(o.get("s_password").toString());
 			   login.setBackNews("登录成功");
 		   } 
+		   
+		   Mess mess = new MessDao4MongoDBImpl().findUserProtectMessByUserId(login.id,0);
+		   String p_id = "";
+		   String pid= "";
+		   if(null != mess) {
+			   p_id = mess.getP_id();
+		   }
+		   
+		   if(p_id.length() == 6){
+				pid = p_id.substring(0,p_id.length()-1) + "%";
+			}
+			if(p_id.length() == 7){
+				pid = p_id.substring(0,p_id.length()-2) + "%";
+			}
+		   
+		   if(new MessDao4MongoDBImpl().getUserProtectMess(login.id,pid) == null ? false : true && (new MessDao4MongoDBImpl().findUserProtectMess(login.id, p_id)).getAllowstates() == 1){
+				login.backNews = "你已经参加过本次考试，不能再次登录";
+				login.success = false;
+			}
 		} finally {
 		   cursor.close();
 		}
