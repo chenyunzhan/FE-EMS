@@ -21,7 +21,11 @@ public class ExamDao4MongoDBImpl implements ExamDao{
 			String month, String course) throws DaoException {
 		DB db = MongoDBConnectionManager.getDB();
 		DBCollection coll = db.getCollection("exampaper");
-		DBCursor cursor = coll.find();
+		BasicDBObject query = new BasicDBObject();
+		if(year != null && month != null && course != null) {
+			query = new BasicDBObject("p_id", year + month + course);
+		}
+		DBCursor cursor = coll.find(query).limit(10);
 		List<ExamPaper> list = new ArrayList<ExamPaper>();
 		try	{
 			   while(cursor.hasNext()) {
@@ -49,7 +53,10 @@ public class ExamDao4MongoDBImpl implements ExamDao{
 			throws DaoException {
 		DB db = MongoDBConnectionManager.getDB();
 		DBCollection coll = db.getCollection("exampaper");
-		int count = new Long(coll.getCount()).intValue();
+		BasicDBObject query = new BasicDBObject("p_id", year + month + course);
+		DBCursor cursor = coll.find(query);
+		//cursor.length();
+		int count = cursor.length();//new Long(coll.getCount()).intValue();
 		MongoDBConnectionManager.closeDB();
 		return count;
 	}
