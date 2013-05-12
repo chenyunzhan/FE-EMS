@@ -129,6 +129,18 @@ a:hover img {
 -->
 </style>
 <!-- InstanceEndEditable -->
+
+<script>
+function show_default_examimage() {
+	var a = document.getElementById("examimage");
+	a.setAttribute("src","../images/spacer.gif");
+}	
+
+function show_default_photo() {
+	var a = document.getElementById("studentPhoto");
+	a.setAttribute("src","../images/spacer.gif");
+}
+</script>
 </head>
 <body>
 
@@ -210,16 +222,6 @@ border=0>
   <TBODY>
   
   <SCRIPT language=javascript type=text/javascript>
-  
- 	function show_default_examimage() {
-		var a = document.getElementById("examimage");
-		a.setAttribute("src","../images/spacer.gif");
-	}	
-	
-	function show_default_photo() {
-		var a = document.getElementById("studentPhoto");
-		a.setAttribute("src","../images/spacer.gif");
-	}
   
      //解决返回和刷新问题！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
 	function before(){
