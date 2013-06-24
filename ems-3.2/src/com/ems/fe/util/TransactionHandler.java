@@ -28,8 +28,8 @@ public class TransactionHandler implements InvocationHandler {
 
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
-		//Connection conn = ConnectionManager.getConnection();
-		Connection conn = null;
+		Connection conn = ConnectionManager.getConnection();
+		//Connection conn = null;
 		Object retVal = null;
 		try{
 			//¿ªÆôÊÂÎñ
